@@ -757,3 +757,66 @@
 					});
 
 })(jQuery);
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const form = document.getElementById("contact-form");
+
+  if (!form) return;
+
+  const button = document.getElementById("submit-button");
+  const message = document.getElementById("form-message");
+
+  form.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+    button.disabled = true;
+    button.value = "Enviando...";
+    message.textContent = "";
+
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message")
+    };
+
+    try {
+
+      const response = await fetch("/.netlify/functions/contacto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "No se pudo enviar la consulta.");
+      }
+
+      message.textContent = "¡Consulta enviada correctamente! Te contactaremos pronto.";
+
+      form.reset();
+
+    } catch (error) {
+
+      console.error(error);
+
+      message.textContent =
+        "No pudimos enviar la consulta. Intentá nuevamente.";
+
+    } finally {
+
+      button.disabled = false;
+      button.value = "Enviar consulta";
+
+    }
+
+  });
+
+});
