@@ -49,7 +49,9 @@ exports.handler = async (event) => {
 
     // API Key guardada en las variables de entorno de Netlify
     const brevoApiKey = process.env.BREVO_API_KEY;
-
+console.log("BREVO_API_KEY configurada:", !!brevoApiKey);
+console.log("BREVO_SENDER_EMAIL:", process.env.BREVO_SENDER_EMAIL);
+console.log("CONTACT_EMAIL:", process.env.CONTACT_EMAIL);
     if (!brevoApiKey) {
       console.error("BREVO_API_KEY no configurada.");
 
