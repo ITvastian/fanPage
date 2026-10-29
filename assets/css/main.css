@@ -4035,3 +4035,147 @@ body.is-preload #wrapper {
 p {
   font-weight: 500;
 }
+/* Video de fondo + modal */
+.panel.spotlight .image.video-bg video {
+  object-fit: cover;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  width: 5.5rem;
+  height: 5.5rem;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: none;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s ease;
+}
+
+.video-play::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 0.9rem 0 0.9rem 1.5rem;
+  border-color: transparent transparent transparent #fff;
+}
+
+.video-play:hover {
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: none;
+}
+
+.video-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.85);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.video-modal.is-open {
+  display: flex;
+}
+
+.video-modal-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.video-modal-inner video {
+  width: 100%;
+  max-height: 85vh;
+  display: block;
+  background: #000;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: -2.75rem;
+  right: 0;
+  padding: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: #fff;
+  font-size: 2.25rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 980px) {
+  .video-play {
+    left: 50%;
+  }
+}
+
+/* Flechas del modal de galería */
+.gallery .modal .modal-nav {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 0;
+  line-height: 3.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: none;
+  color: #fff;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.gallery .modal .modal-nav:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.gallery .modal .modal-nav.prev {
+  left: 1.5rem;
+}
+
+.gallery .modal .modal-nav.next {
+  right: 1.5rem;
+}
+
+.gallery .modal.has-slides .modal-nav {
+  display: block;
+}
+
+.image.video-bg {
+  position: relative;
+}
+
+.image.video-bg video {
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.panel:not(.spotlight) .image.video-bg .video-play {
+  left: 50%;
+}

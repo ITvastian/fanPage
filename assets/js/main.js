@@ -655,6 +655,12 @@
 				// Lock.
 					$modal[0]._locked = true;
 
+				// Slides (opcional: data-slides="a.png,b.png,...").
+					var slides = ($a.attr('data-slides') || '').split(',').map(function(x) { return x.trim(); }).filter(Boolean);
+					$modal[0]._slides = slides.length > 1 ? slides : null;
+					$modal[0]._index = Math.max(0, slides.indexOf(href));
+					$modal.toggleClass('has-slides', slides.length > 1);
+
 				// Set src.
 					$modalImg.attr('src', href);
 
@@ -721,6 +727,33 @@
 					}, 125);
 
 			})
+			.on('click', '.modal-nav', function(event) {
+
+				event.preventDefault();
+				event.stopPropagation();
+
+				var $modal = $(this).parents('.modal'),
+					m = $modal[0];
+
+				if (!m._slides)
+					return;
+
+				m._index = (m._index + ($(this).hasClass('next') ? 1 : -1) + m._slides.length) % m._slides.length;
+				$modal.removeClass('loaded');
+				$modal.find('.inner img').attr('src', m._slides[m._index]);
+
+			})
+			.on('keydown', '.modal', function(event) {
+
+				if (!this._slides)
+					return;
+
+				if (event.keyCode == 37)
+					$(this).find('.modal-nav.prev').trigger('click');
+				else if (event.keyCode == 39)
+					$(this).find('.modal-nav.next').trigger('click');
+
+			})
 			.on('keypress', '.modal', function(event) {
 
 				var $modal = $(this);
@@ -736,7 +769,7 @@
 					event.stopPropagation();
 
 			})
-			.prepend('<div class="modal" tabIndex="-1"><div class="inner"><img src="" /></div></div>')
+			.prepend('<div class="modal" tabIndex="-1"><div class="inner"><img src="" /></div><button type="button" class="modal-nav prev" aria-label="Anterior">&#8249;</button><button type="button" class="modal-nav next" aria-label="Siguiente">&#8250;</button></div>')
 				.find('img')
 					.on('load', function(event) {
 
@@ -752,7 +785,7 @@
 							// Set loaded.
 								$modal.addClass('loaded');
 
-						}, 275);
+						}, $modal.hasClass('visible') && $modal[0]._slides ? 0 : 275);
 
 					});
 

@@ -45,8 +45,10 @@
             </li>
           </ul>
         </div>
-        <div class="image filtered span-1-75" data-position="25% 25%">
-          <img src="images/qr-pic1.jpg" alt="" />
+        <div class="image filtered span-1-75 video-bg" data-position="25% 25%">
+          <video src="images/demoDynoApp.mp4#t=1" muted playsinline preload="metadata"></video>
+          <button type="button" class="video-play" data-video="images/demoDynoApp.mp4"
+            aria-label="Reproducir video"></button>
         </div>
       </section>
 
@@ -121,8 +123,10 @@
             centralizada.
             Con Dyno, tenés herramientas digitales para acompañar el trabajo cotidiano de tu equipo.</p>
         </div>
-        <div class="image filtered tinted" data-position="top right">
-          <img src="images/backoffice_usuarios_roles.png" alt="" />
+        <div class="image filtered tinted video-bg" data-position="top right">
+          <video src="images/panelDyno.mp4#t=1" muted playsinline preload="metadata"></video>
+          <button type="button" class="video-play" data-video="images/panelDyno.mp4"
+            aria-label="Reproducir video"></button>
         </div>
       </section>
 
@@ -131,14 +135,14 @@
 
         <div class="gallery">
           <div class="group span-3">
-            <a href="images/dashboard-dyno-demo.png" class="image filtered span-3" data-position="bottom"><img
-                src="images/dashboard-dyno-demo.png" alt="" /></a>
+            <a href="images/dashboard.png" class="image filtered span-3" data-position="bottom"
+              data-slides="images/cobros.png,images/contenidoHome.png"><img src="images/dashboard.png" alt="" /></a>
             <a href="images/metricas.png" class="image filtered span-1-5" data-position="center"><img
                 src="images/metricas.png" alt="" /></a>
-            <a href="images/qr_escanea_y_pedi.png" class="image filtered span-1-5" data-position="bottom"><img
-                src="images/qr_escanea_y_pedi.png" alt="" /></a>
+            <a href="images/usuarios.png" class="image filtered span-1-5" data-position="bottom"><img
+                src="images/usuarios.png" alt="" /></a>
           </div>
-          <a href="images/noti.png" class="image filtered span-2-5" data-position="top"><img src="images/noti.png"
+          <a href="images/salon.png" class="image filtered span-2-5" data-position="top"><img src="images/salon.png"
               alt="" /></a>
           <!-- Panel (Spotlight) -->
           <section class="panel spotlight large left">
@@ -150,21 +154,21 @@
                 Cuando confirman el pedido, te llega al instante a tu panel de administración.</p>
             </div>
             <div class="image filtered tinted" data-position="top right">
-              <img src="images/pic04_front_cliente_collage.jpg" alt="" />
+              <img src="images/fondo-dyno.png" alt="" />
             </div>
           </section>
           <div class="group span-4-5">
-            <a href="images/frontperfil.png" class="image filtered span-3" data-position="top"><img
-                src="images/frontperfil.png" alt="" /></a>
-            <a href="images/frontcarrito.png" class="image filtered span-1-5" data-position="center"><img
-                src="images/frontcarrito.png" alt="" /></a>
-            <a href="images/fronthome.jpeg" class="image filtered span-1-5" data-position="bottom"><img
-                src="images/fronthome.jpeg" alt="" /></a>
-            <a href="images/frontarticulo.png" class="image filtered span-3" data-position="top"><img
-                src="images/frontarticulo.png" alt="" /></a>
+            <a href="images/home.png" class="image filtered span-3" data-position="top"><img src="images/home.png"
+                alt="" /></a>
+            <a href="images/carrito.png" class="image filtered span-1-5" data-position="center"><img
+                src="images/carrito.png" alt="" /></a>
+            <a href="images/entrada.png" class="image filtered span-1-5" data-position="bottom"><img
+                src="images/entrada.png" alt="" /></a>
+            <a href="images/articulo.png" class="image filtered span-3" data-position="top"><img
+                src="images/articulo.png" alt="" /></a>
           </div>
-          <a href="images/fronthome1.png" class="image filtered span-2-5" data-position="right"><img
-              src="images/fronthome1.png" alt="" /></a>
+          <a href="images/comentarios.png" class="image filtered span-2-5" data-position="right"><img
+              src="images/comentarios.png" alt="" /></a>
         </div>
       </section>
 
@@ -281,12 +285,42 @@
 
   </div>
 
+  <!-- Modal de video -->
+  <div id="video-modal" class="video-modal" aria-hidden="true">
+    <div class="video-modal-inner">
+      <button type="button" class="video-modal-close" aria-label="Cerrar">&times;</button>
+      <video controls playsinline preload="none"></video>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/browser.min.js"></script>
   <script src="assets/js/breakpoints.min.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="/netlify/functions/contacto.js"></script>
+
+  <script>
+    (function () {
+      var modal = document.getElementById('video-modal');
+      var player = modal.querySelector('video');
+      function open() {
+        player.src = this.getAttribute('data-video');
+        modal.classList.add('is-open');
+        player.play();
+      }
+      function close() {
+        player.pause();
+        player.removeAttribute('src');
+        player.load();
+        modal.classList.remove('is-open');
+      }
+      document.querySelectorAll('.video-play').forEach(function (b) { b.addEventListener('click', open); });
+      modal.querySelector('.video-modal-close').addEventListener('click', close);
+      modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
 
 </body>
 
