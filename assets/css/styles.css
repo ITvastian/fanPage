@@ -713,3 +713,42 @@ h3 {
   margin: 0 auto;
   border-radius: 12px;
 }
+
+/* Página legal */
+.legal .container {
+  max-width: 760px;
+}
+
+.legal h1 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  margin-bottom: 0.5rem;
+}
+
+.legal-date {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 2.5rem;
+}
+
+.legal h2 {
+  font-size: 1.25rem;
+  margin: 2.25rem 0 0.75rem;
+}
+
+.legal p,
+.legal li {
+  margin-bottom: 0.75rem;
+}
+
+.legal ul {
+  padding-left: 1.25rem;
+}
+
+.footer a {
+  color: #c9c6cf;
+  text-decoration: underline;
+}
+
+.footer a:hover {
+  color: #fff;
+}
